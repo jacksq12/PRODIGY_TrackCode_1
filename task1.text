@@ -1,0 +1,35 @@
+# titanic_eda.py
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+df = pd.read_csv(url)
+
+# Basic info
+print("First 5 rows:\n", df.head())
+print("\nData Types:\n", df.info())
+print("\nSummary Statistics:\n", df.describe())
+
+# Missing Values
+print("\nMissing Values:\n", df.isnull().sum())
+
+# Visualizations
+sns.countplot(x='Survived', data=df)
+plt.title("Survival Count")
+plt.savefig("survival_count.png")
+plt.show()
+
+sns.histplot(df['Age'].dropna(), kde=True)
+plt.title("Age Distribution")
+plt.savefig("age_distribution.png")
+plt.show()
+
+# Heatmap
+plt.figure(figsize=(10,6))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+plt.title("Correlation Heatmap")
+plt.savefig("correlation_heatmap.png")
+plt.show()
